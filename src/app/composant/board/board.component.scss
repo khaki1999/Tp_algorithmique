@@ -1,32 +1,46 @@
 .board {
   display: flex;
   flex-direction: column;
-  align-items: center; // Centrer le plateau
-  border: 2px solid brown; // Bordure marron
-  margin: 0 auto; // Centrer dans la page
+  align-items: center;
+  border: 3px solid brown;
+  margin: 0 auto;
+  max-width: 90vw; // Limite la largeur maximale
 }
 
 .row {
   display: flex;
+  width: 100%; // Utilisez toute la largeur du plateau
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
+  flex: 1; // Les cellules prennent un espace égal
+  padding-top: 10%; // Ratio de l'aspect pour les cellules carrées
+  position: relative; // Pour le positionnement des pions
   border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.cell::before {
+  content: '';
+  display: block;
+  padding-top: 100%; // Maintient le rapport hauteur/largeur
 }
 
 .cell span {
-  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5vw; // Taille relative à la largeur de la vue
 }
 
-
-
-
-.cell span {
-  font-size: 30px;
+@media (min-width: 600px) {
+  .cell span {
+    font-size: 30px; // Taille fixe pour les écrans plus larges
+  }
 }
 
+.cell:hover {
+  background-color: rgba(0, 0, 0, 0.1); // Effet au survol
+}
+
+/* Ajouter des styles supplémentaires pour l'accessibilité et l'interactivité */
