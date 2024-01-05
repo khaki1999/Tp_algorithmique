@@ -1,0 +1,10 @@
+<div class="board">
+  <p>{{ message }}</p>
+  <div *ngFor="let row of board; let i = index" class="row">
+    <div *ngFor="let cell of row; let j = index" class="cell" (click)="placePion(i, j)">
+      <span *ngIf="cell === 1">⚫</span>
+      <span *ngIf="cell === 2">⚪</span>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,32 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centrer le plateau
+  border: 2px solid brown; // Bordure marron
+  margin: 0 auto; // Centrer dans la page
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell span {
+  font-size: 30px;
+}
+
+
+
+
+.cell span {
+  font-size: 30px;
+}
+
