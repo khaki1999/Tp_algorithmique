@@ -7,21 +7,31 @@ export class JeuxService {
   private playerNames: string[] = ["", ""];
   private board!: number[][];
   private currentPlayer!: number;
+  private boardSize = 8;
 
   constructor() {
     this.initializeGame();
   }
 
   initializeGame() {
-    this.board = Array(8).fill(null).map(() => Array(8).fill(0));
-    // Placement initial des pions
-    this.board[3][3] = 1;
-    this.board[4][4] = 1;
-    this.board[3][4] = 2;
-    this.board[4][3] = 2;
+    this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+
+    // Calculer les positions initiales des pions
+    const midPoint = Math.floor(this.boardSize / 2);
+
+    // Placer les pions initiaux
+    // Joueur 1
+    this.board[midPoint - 1][midPoint - 1] = 1;
+    this.board[midPoint][midPoint] = 1;
+
+    // Joueur 2
+    this.board[midPoint - 1][midPoint] = 2;
+    this.board[midPoint][midPoint - 1] = 2;
+
     // Tirage au sort du joueur qui commence
     this.currentPlayer = Math.floor(Math.random() * 2) + 1;
   }
+
 
   placePion(x: number, y: number): { success: boolean, scores: number[], gameEnded?: boolean, winner?: string, isDraw?: boolean } {
     if (!this.isValidMove(x, y)) {
@@ -157,6 +167,11 @@ export class JeuxService {
     if (playerNumber === 1 || playerNumber === 2) {
       this.playerNames[playerNumber - 1] = name;
     }
+  }
+
+  setBoardSize(size: number) {
+    this.boardSize = size;
+    this.initializeGame(); // Réinitialiser le jeu avec la nouvelle taille de plateau
   }
 
 

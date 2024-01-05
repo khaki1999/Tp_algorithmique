@@ -14,15 +14,36 @@ export class BoardComponent {
   constructor(private gameLogic: JeuxService) {}
 
   ngOnInit() {
-    // Demander les noms des joueurs au chargement de la page
-    this.askForPlayerNames();
-    this.initializeGame();
+    this.askForBoardSize().then(() => {
+      this.askForPlayerNames();
+      this.initializeGame();
+    });
   }
+
+
 
   initializeGame() {
     this.updateBoard();
     console.log(this.board);
     this.updateMessage(); // Mettre à jour le message avec les noms des joueurs et les scores
+  }
+
+  async askForBoardSize() {
+    return new Promise<void>((resolve) => {
+      const size = window.prompt("Veuillez entrer la taille du plateau (nombre de cases par côté) :");
+
+      if (size !== null) {
+        const sizeNumber = parseInt(size);
+        if (!isNaN(sizeNumber) && sizeNumber > 0) {
+          this.gameLogic.setBoardSize(sizeNumber);
+        } else {
+          this.gameLogic.setBoardSize(8); // Taille par défaut
+        }
+      } else {
+        this.gameLogic.setBoardSize(8); // Taille par défaut
+      }
+      resolve();
+    });
   }
 
   placePion(x: number, y: number) {
